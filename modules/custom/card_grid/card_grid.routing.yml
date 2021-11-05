@@ -1,0 +1,8 @@
+card_grid.card-grid:
+  path: '/code-challenge/card-grid'
+  defaults:
+    _controller: '\Drupal\card_grid\Controller\CardGridController::get'
+    _title: 'Card Grid'
+  methods: 'GET'
+  requirements:
+    _permission: 'access content'

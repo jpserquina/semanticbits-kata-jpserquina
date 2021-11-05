@@ -1,6 +1,34 @@
 # semanticlabs-kata-jpserquina
+A kata done in Drupal 9, Lando + Docker, and WSL2 + Ubuntu 20.04 LTS.
+
+Includes a Swagger doc and a PHPUnit test.
+
+Includes a `card_grid` custom module for Drupal 9, that can be installed either via Drupal Extend / module install,
+or  `composer include` (once properly hosted).
+
+## requires
+Lando (https://docs.lando.dev/config/drupal9.html)
+
+Some finagling with dependencies. I have included the modified
+composer.json for this project, but as with all things Drupal, YMMV.
 
 
+## usage
+* Pull latest Drupal: `composer create-project drupal/recommended-project semanticlabs-kata-jpserquina`
+* Git clone into a directory.
+* `composer install` for good measure
+* `lando up`. Wait for the boomshakalaka
+* `lando info`; take note of the internal and external URIs and their respective ports
+* `lando drush site:install`
+* Log in as admin into Drupal: https://semanticbits-kata-jpserquina.lndo.site
+* https://semanticbits-kata-jpserquina.lndo.site/admin/modules; enable the `card_grid` module
+* Hit the endpoint via GET: https://semanticbits-kata-jpserquina.lndo.site/code-challenge/card-grid?rows=6&columns=6. Play around with the values for `rows` and `columns`
+
+## miscellaneous
+* Built on Drupal 9.2.8
+* The `swagger` folder contains an html2 copy of [this SwaggerHub doc](https://app.swaggerhub.com/apis/jpserquina/card_grid/0.1#/default/get_code_challenge_card_grid)
+* The `card_grid` module has a PHPUnit test
+* This spec is pretty confusing: `The array will have a total of ((rows * columns) / 2) unique items repeated twice.` I can dive in and make the improvement once the spec has been further clarified.
 
 -----
 
