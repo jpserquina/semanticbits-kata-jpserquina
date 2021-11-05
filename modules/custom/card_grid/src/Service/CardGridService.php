@@ -33,7 +33,7 @@ class CardGridService
       $result .= self::ERROR_INCORRECT_INPUT . self::NEWLINE;
     }
 
-    if ($rows % 2 > 0 || $columns % 2 > 0) {
+    if ($rows % 2 > 0 && $columns % 2 > 0) {
       $result .= self::ERROR_NOT_EVEN_NUMBER . self::NEWLINE;
     }
 
@@ -69,33 +69,29 @@ class CardGridService
     }
 
     $totalNumber = $rows * $columns;
+    $uniqueTotalNumber = $totalNumber / 2;
 
-    $shuffledDeck = self::enhanced_array_rand($deck, $totalNumber);
-    $shuffledAndCutDeck = self::splitDeckIntoColumns($columns, $shuffledDeck);
+    $uniqueShuffledDeck = self::enhanced_array_rand($deck, $uniqueTotalNumber);
+    $shuffledAndCutDeck = self::splitDeckIntoGroups($columns, $uniqueShuffledDeck);
 
     return [
       'cards' => $shuffledAndCutDeck,
-      'cardCount' => count($shuffledDeck),
-      'uniqueCardCount' => count(array_unique($shuffledDeck)),
-      'uniqueCards' => array_values(array_unique($shuffledDeck))
+      'cardCount' => $totalNumber,
+      'uniqueCardCount' => $uniqueTotalNumber,
+      'uniqueCards' => $uniqueShuffledDeck
     ];
   }
 
   /**
    * @param array|null $array $array
-   * @param int $number
+   * @param int $uniqueTotalNumber
    * @return array
    */
-  private static function enhanced_array_rand(?array $array, int $number): array
+  private static function enhanced_array_rand(?array $array, int $uniqueTotalNumber): array
   {
-    $result = [];
-    $array = array_flip($array);
+    shuffle($array);
 
-    for ($i = 0; $i < $number; $i++) {
-      $result[] = array_rand($array);
-    }
-
-    return $result;
+    return array_slice($array, 0, $uniqueTotalNumber);
   }
 
   /**
@@ -103,8 +99,13 @@ class CardGridService
    * @param array $deck
    * @return array
    */
-  private static function splitDeckIntoColumns(int $columns, array $deck): array
+  private static function splitDeckIntoGroups(int $columns, array $deck): array
   {
-    return array_chunk($deck, $columns);
+    $dupedDeck = array_merge($deck, $deck);
+    shuffle($dupedDeck);
+
+    // TODO - guard check the uniqueness per chunk
+
+    return array_chunk($dupedDeck, $columns);
   }
 }
