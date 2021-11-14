@@ -28,7 +28,7 @@ composer.json for this project, but as with all things Drupal, YMMV.
 * Built on Drupal 9.2.8
 * The `swagger` folder contains an html2 copy of [this SwaggerHub doc](https://app.swaggerhub.com/apis/jpserquina/card_grid/0.1#/default/get_code_challenge_card_grid)
 * The `card_grid` module has a PHPUnit test
-* Note: this issue has already been fixed during peer coding CR ~~This spec is pretty confusing: `The array will have a total of ((rows * columns) / 2) unique items repeated twice.` I can dive in and make the improvement once the spec has been further clarified.
+* Note: this issue has already been fixed during peer coding CR ~~This spec is pretty confusing: `The array will have a total of ((rows * columns) / 2) unique items repeated twice.` I can dive in and make the improvement once the spec has been further clarified.~~
 
 -----
 
